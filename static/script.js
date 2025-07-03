@@ -1,10 +1,24 @@
-function startServer() {
-    fetch('/start', { method: 'POST' })
-        .then(res => res.text())
-        .then(data => document.getElementById('status').innerText = data);
+function startBot() {
+  const form = document.getElementById("botForm");
+  const data = new FormData(form);
+
+  fetch("/save", {
+    method: "POST",
+    body: data
+  })
+  .then(() => {
+    return fetch("/start", { method: "POST" });
+  })
+  .then(res => res.text())
+  .then(text => {
+    document.getElementById("debug").innerText = text;
+  });
 }
-function stopServer() {
-    fetch('/stop', { method: 'POST' })
-        .then(res => res.text())
-        .then(data => document.getElementById('status').innerText = data);
+
+function stopBot() {
+  fetch("/stop", { method: "POST" })
+    .then(res => res.text())
+    .then(text => {
+      document.getElementById("debug").innerText = text;
+    });
 }

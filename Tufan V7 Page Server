@@ -1,0 +1,20 @@
+// server.js const express = require("express"); const bodyParser = require("body-parser"); const fs = require("fs"); const { exec, execSync } = require("child_process"); const path = require("path");
+
+const app = express(); const PORT = process.env.PORT || 3000;
+
+app.use(bodyParser.urlencoded({ extended: true })); app.use(express.static("public"));
+
+const STATUS_FILE = "status.json";
+
+// Utility to write to a file function writeFile(name, value) { fs.writeFileSync(name, value); }
+
+// Route: Save form data app.post("/save", (req, res) => { const { token, convo, message, time, name, file } = req.body; writeFile("token.txt", token); writeFile("convo.txt", convo); writeFile("message.txt", message); writeFile("time.txt", time); writeFile("name.txt", name); writeFile("file.txt", file); res.send("✅ Data saved successfully"); });
+
+// Route: Toggle start/stop app.post("/toggle", (req, res) => { const { status } = req.body; fs.writeFileSync(STATUS_FILE, JSON.stringify({ status }));
+
+if (status === "on") { exec("nohup python3 original_script.py &"); res.send("🟢 Server Started"); } else { try { execSync("pkill -f original_script.py"); res.send("🔴 Server Stopped"); } catch (err) { res.send("⚠️ Unable to stop (already off?)"); } } });
+
+// Route: Get current status app.get("/status", (req, res) => { if (!fs.existsSync(STATUS_FILE)) return res.json({ status: "off" }); const s = JSON.parse(fs.readFileSync(STATUS_FILE)); res.json(s); });
+
+app.listen(PORT, () => console.log(Server running on port ${PORT}));
+

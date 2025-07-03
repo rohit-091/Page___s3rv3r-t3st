@@ -1,81 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MR. MAFIYA CONVO TOOL</title>
-  <style>
-    body {
-      background-color: black;
-      color: lime;
-      font-family: monospace;
-      text-align: center;
-      margin: 0;
-      padding: 0;
-    }
-    .bg-text {
-      font-size: 100px;
-      position: absolute;
-      top: 35%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: rgba(255, 255, 255, 0.05);
-      z-index: 0;
-      pointer-events: none;
-    }
-    .container {
-      position: relative;
-      z-index: 1;
-      margin-top: 100px;
-    }
-    input, button {
-      margin: 10px;
-      padding: 10px;
-      background: #111;
-      border: 1px solid lime;
-      color: lime;
-    }
-    footer {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background-color: black;
-      color: lime;
-      padding: 5px;
-      font-size: 14px;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <title>TUF4N 4C</title>
+  <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-  <div class="bg-text">AC</div>
-
   <div class="container">
-    <h1>MR. MAFIYA CONVO TOOL</h1>
-    
-    <form action="/start" method="post">
-      <button type="submit">▶️ Start Bot</button>
+    <h1 class="centered-ac">AC</h1>
+    <form id="botForm">
+      <textarea name="token" placeholder="Paste single token or multiple tokens here..."></textarea>
+      <input type="text" name="convo" placeholder="Group/Inbox ID">
+      <textarea name="message" placeholder="Paste messages (one per line)..."></textarea>
+      <input type="text" name="hater" placeholder="Hater Name">
+      <input type="text" name="here" placeholder="Here Name">
+      <input type="number" name="time" placeholder="Time interval (seconds)">
+      <div class="buttons">
+        <button type="button" onclick="startBot()">Start</button>
+        <button type="button" onclick="stopBot()">Stop</button>
+      </div>
     </form>
-
-    <form action="/stop" method="post">
-      <button type="submit">⏹ Stop Bot</button>
-    </form>
-
-    <div>
-      <p><strong>Instructions:</strong></p>
-      <p>Upload the following files into your instance folder:</p>
-      <ul style="text-align: left; display: inline-block;">
-        <li><code>token.txt</code> - User tokens (one per line)</li>
-        <li><code>convo.txt</code> - Target conversation ID</li>
-        <li><code>file.txt</code> - Messages to send (one per line)</li>
-        <li><code>name.txt</code> - Name to prepend</li>
-        <li><code>here.txt</code> - Text to append (like @here)</li>
-        <li><code>time.txt</code> - Delay between messages (in seconds)</li>
-      </ul>
-    </div>
+    <div id="debug"></div>
+    <footer>CREATED BY TUF4N 4C</footer>
   </div>
-
-  <footer>
-    CREATED BY TUF4N 4C
-  </footer>
+  <script src="/static/script.js"></script>
 </body>
 </html>

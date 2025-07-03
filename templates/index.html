@@ -1,111 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>TUFAN AC V7 SERVER</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom right, #001f3f, #000);
-      color: white;
-      position: relative;
-    }
-    .watermark {
-      position: fixed;
-      top: 40%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 120px;
-      color: rgba(255, 255, 255, 0.05);
-      z-index: 0;
-      user-select: none;
-      pointer-events: none;
-    }
-    .container {
-      position: relative;
-      z-index: 1;
-      max-width: 400px;
-      background: rgba(0,0,0,0.75);
-      margin: auto;
-      padding: 20px;
-      margin-top: 50px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px #00f0ff;
-    }
-    input, textarea {
-      width: 100%;
-      margin-bottom: 10px;
-      padding: 10px;
-      border: none;
-      border-radius: 4px;
-      background: #111;
-      color: #0f0;
-    }
-    textarea { height: 80px; }
-    button {
-      padding: 10px;
-      margin-right: 5px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    #saveBtn { background: #28a745; color: #fff; }
-    #startBtn { background: #007bff; color: #fff; }
-    #stopBtn { background: #dc3545; color: #fff; }
-    #status { margin-top: 15px; font-size: 14px; color: #0f0; }
-    footer {
-      text-align: center;
-      margin-top: 20px;
-      color: #888;
-    }
-  </style>
+    <title>AC Server</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-  <div class="watermark">AC</div>
-
-  <div class="container">
-    <h2>🔥 TUFAN AC V7 SERVER 🔥</h2>
-    <form id="dataForm">
-      <input type="text" name="token" placeholder="V7 Token" required><br>
-      <input type="text" name="convo" placeholder="Convo ID" required><br>
-      <input type="text" name="name" placeholder="Name (optional)"><br>
-      <textarea name="message" placeholder="Message" required></textarea><br>
-      <input type="number" name="time" placeholder="Delay (sec)" required><br>
-      <button id="saveBtn" type="submit">💾 Save</button>
-      <button id="startBtn" type="button">▶ Start</button>
-      <button id="stopBtn" type="button">⏹ Stop</button>
-    </form>
-    <div id="status"></div>
-    <footer>Created by TuFan AC</footer>
-  </div>
-
-  <script>
-    ['token','convo','name','message','time'].forEach(k=>{
-      if(localStorage[k]) document.querySelector(`[name=${k}]`).value = localStorage[k];
-    });
-
-    document.getElementById('dataForm').addEventListener('submit', async e => {
-      e.preventDefault();
-      const data = Object.fromEntries(new FormData(e.target).entries());
-      ['token','convo','name','message','time'].forEach(k=>localStorage[k]=data[k]);
-      const res = await fetch('/save', {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body: JSON.stringify(data)
-      });
-      document.getElementById('status').innerText = await res.text();
-    });
-
-    document.getElementById('startBtn').addEventListener('click', async ()=>{
-      const res = await fetch('/toggle',{method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({status:'on'})});
-      document.getElementById('status').innerText = await res.text();
-    });
-
-    document.getElementById('stopBtn').addEventListener('click', async ()=> {
-      const res = await fetch('/toggle',{method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({status:'off'})});
-      document.getElementById('status').innerText = await res.text();
-    });
-  </script>
+    <div class="background-text">AC</div>
+    <div class="content">
+        <h1>🛠 Convo Tool Panel</h1>
+        <button onclick="startServer()">▶️ Start</button>
+        <button onclick="stopServer()">🛑 Stop</button>
+        <div id="status"></div>
+    </div>
+    <footer>CREATED BY TUF4N 4C</footer>
+    <script src="/static/script.js"></script>
 </body>
 </html>

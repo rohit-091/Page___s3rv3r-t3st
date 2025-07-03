@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify
-import subprocess, os, json
+import os, json
 
 app = Flask(__name__)
 
@@ -26,13 +26,7 @@ def toggle():
     status = request.json.get("status")
     with open("status.json", "w") as f:
         json.dump({"status": status}, f)
-
-    if status == "on":
-        subprocess.Popen(["python3", "original_script.py"])
-        return "🟢 Server Started"
-    else:
-        subprocess.call(["pkill", "-f", "original_script.py"])
-        return "🔴 Server Stopped"
+    return f"🟢 Server status updated to: {status}"
 
 @app.route("/status")
 def status():

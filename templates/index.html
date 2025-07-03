@@ -6,23 +6,25 @@
   <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
+  <div class="ac-background">AC</div>
   <div class="container">
-    <h1 class="centered-ac">AC</h1>
+    <h1 class="title">TUF4N 4C</h1>
     <form id="botForm">
-      <textarea name="token" placeholder="Paste single token or multiple tokens here..."></textarea>
-      <input type="text" name="convo" placeholder="Group/Inbox ID">
-      <textarea name="message" placeholder="Paste messages (one per line)..."></textarea>
-      <input type="text" name="hater" placeholder="Hater Name">
-      <input type="text" name="here" placeholder="Here Name">
-      <input type="number" name="time" placeholder="Time interval (seconds)">
+      <textarea name="token" placeholder="Paste Single or Multiple Tokens Here" required></textarea>
+      <input type="text" name="convo" placeholder="Group/Inbox ID" required>
+      <input type="text" name="hater" placeholder="Hater Name" required>
+      <input type="text" name="here" placeholder="Here Name" required>
+      <input type="number" name="time" placeholder="Time (seconds)" required>
+      <textarea name="message" placeholder="Message Lines (one per line)" required></textarea>
       <div class="buttons">
-        <button type="button" onclick="startBot()">Start</button>
-        <button type="button" onclick="stopBot()">Stop</button>
+        <button type="button" onclick="saveInputs()">💾 Save</button>
+        <button type="button" onclick="startBot()">▶️ Start</button>
+        <button type="button" onclick="stopBot()">⏹️ Stop</button>
       </div>
     </form>
-    <div id="debug"></div>
+    <div id="status"></div>
     <footer>CREATED BY TUF4N 4C</footer>
   </div>
   <script src="/static/script.js"></script>
 </body>
-</html>
+          </html>

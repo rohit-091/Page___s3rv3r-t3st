@@ -1,0 +1,10 @@
+name: tufan-v7-server
+
+build:
+  type: buildpack
+
+run:
+  cmd: python3 main.py
+  envs:
+    - key: PORT
+      value: "8000"

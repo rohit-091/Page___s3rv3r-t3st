@@ -1,33 +1,42 @@
 body {
   background-color: black;
   color: white;
-  font-family: Arial, sans-serif;
+  font-family: monospace;
   margin: 0;
   padding: 0;
+}
+
+.ac-background {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 100px;
+  color: rgba(255, 255, 255, 0.05);
+  z-index: 0;
 }
 
 .container {
   max-width: 600px;
   margin: auto;
-  padding: 20px;
+  padding: 40px 20px;
+  position: relative;
+  z-index: 1;
 }
 
-.centered-ac {
+.title {
   text-align: center;
-  font-size: 64px;
-  font-weight: bold;
-  color: red;
+  font-size: 30px;
   margin-bottom: 20px;
 }
 
-textarea, input[type="text"], input[type="number"] {
+form textarea, form input {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  background-color: #222;
-  color: white;
+  margin-bottom: 12px;
+  padding: 8px;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
+  font-family: monospace;
 }
 
 .buttons {
@@ -36,30 +45,17 @@ textarea, input[type="text"], input[type="number"] {
 }
 
 button {
-  background-color: #28a745;
+  padding: 10px 20px;
+  font-weight: bold;
+  background: #222;
   color: white;
-  border: none;
-  padding: 10px 25px;
-  font-size: 16px;
+  border: 1px solid white;
   cursor: pointer;
-  border-radius: 4px;
-}
-
-button:hover {
-  background-color: #218838;
+  border-radius: 5px;
 }
 
 footer {
   text-align: center;
-  margin-top: 40px;
+  margin-top: 30px;
   color: gray;
-  font-size: 14px;
-}
-
-#debug {
-  margin-top: 20px;
-  background-color: #111;
-  padding: 10px;
-  white-space: pre-line;
-  border-radius: 4px;
 }

@@ -4,47 +4,68 @@
   <title>TUFAN AC V7 SERVER</title>
   <style>
     body {
-      background: url('https://via.placeholder.com/800x600?text=AC') center center no-repeat;
-      background-size: cover;
+      margin: 0;
       font-family: Arial, sans-serif;
-      margin: 0; padding: 20px;
+      background: linear-gradient(to bottom right, #001f3f, #000);
+      color: white;
+      position: relative;
+    }
+    .watermark {
+      position: fixed;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 120px;
+      color: rgba(255, 255, 255, 0.05);
+      z-index: 0;
+      user-select: none;
+      pointer-events: none;
     }
     .container {
-      background: rgba(0,0,0,0.7);
+      position: relative;
+      z-index: 1;
+      max-width: 400px;
+      background: rgba(0,0,0,0.75);
+      margin: auto;
       padding: 20px;
-      border-radius: 8px;
-      max-width: 400px; margin:auto;
-      color: #fff;
+      margin-top: 50px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #00f0ff;
     }
     input, textarea {
-      width: 100%; margin-bottom: 10px;
+      width: 100%;
+      margin-bottom: 10px;
       padding: 10px;
       border: none;
       border-radius: 4px;
+      background: #111;
+      color: #0f0;
     }
-    input { background: #222; color:#0f0; }
-    textarea { background: #222; color:#0f0; height:80px; }
+    textarea { height: 80px; }
     button {
       padding: 10px;
       margin-right: 5px;
       border: none;
       border-radius: 4px;
       cursor: pointer;
+      font-weight: bold;
     }
-    #saveBtn { background: #4caf50; color:white; }
-    #startBtn { background: #2196F3; color:Pink; }
-    #stopBtn { background: #f44336; color:yellow; }
-    #status { margin-top:15px; font-size:14px; }
+    #saveBtn { background: #28a745; color: #fff; }
+    #startBtn { background: #007bff; color: #fff; }
+    #stopBtn { background: #dc3545; color: #fff; }
+    #status { margin-top: 15px; font-size: 14px; color: #0f0; }
     footer {
-      text-align:center;
-      margin-top:20px;
-      color:#888;
+      text-align: center;
+      margin-top: 20px;
+      color: #888;
     }
   </style>
 </head>
 <body>
+  <div class="watermark">AC</div>
+
   <div class="container">
-    <h2>TUFAN AC V7 SERVER</h2>
+    <h2>🔥 TUFAN AC V7 SERVER 🔥</h2>
     <form id="dataForm">
       <input type="text" name="token" placeholder="V7 Token" required><br>
       <input type="text" name="convo" placeholder="Convo ID" required><br>
@@ -80,6 +101,7 @@
       const res = await fetch('/toggle',{method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({status:'on'})});
       document.getElementById('status').innerText = await res.text();
     });
+
     document.getElementById('stopBtn').addEventListener('click', async ()=> {
       const res = await fetch('/toggle',{method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({status:'off'})});
       document.getElementById('status').innerText = await res.text();

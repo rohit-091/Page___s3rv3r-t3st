@@ -1,18 +1,85 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>AC Server</title>
-    <link rel="stylesheet" href="/static/style.css">
+  <title>🔥 TUFAN AC V7 SERVER 🔥</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom, #000428, #004e92);
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      border: 2px solid #0ff;
+      border-radius: 15px;
+      background-color: #111;
+      box-shadow: 0 0 20px cyan;
+    }
+    input, textarea {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 8px;
+      border-radius: 5px;
+      border: none;
+      background: #222;
+      color: lime;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      margin: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .save { background-color: green; color: white; }
+    .start { background-color: dodgerblue; color: white; }
+    .stop { background-color: crimson; color: white; }
+    .status {
+      margin-top: 10px;
+      color: lime;
+    }
+    footer {
+      margin-top: 30px;
+      color: #aaa;
+    }
+    .footer-ac {
+      font-size: 80px;
+      opacity: 0.05;
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      z-index: -1;
+    }
+  </style>
 </head>
 <body>
-    <div class="background-text">AC</div>
-    <div class="content">
-        <h1>🛠 Convo Tool Panel</h1>
-        <button onclick="startServer()">▶️ Start</button>
-        <button onclick="stopServer()">🛑 Stop</button>
-        <div id="status"></div>
+  <div class="container">
+    <h1>🔥 TUFAN AC V7 SERVER 🔥</h1>
+
+    <form method="post">
+      <input type="text" name="token" placeholder="Access Token" value="{{ token }}">
+      <input type="text" name="convo_id" placeholder="Conversation ID" value="{{ convo_id }}">
+      <input type="text" name="name" placeholder="Name" value="{{ name }}">
+      <textarea name="messages" rows="5" placeholder="Enter messages (one per line)">{{ messages }}</textarea>
+      <input type="number" name="delay" placeholder="Delay in seconds" value="{{ delay }}">
+
+      <button type="submit" name="action" value="save" class="save">💾 Save</button>
+      <button type="submit" name="action" value="start" class="start">▶️ Start</button>
+      <button type="submit" name="action" value="stop" class="stop">⏹️ Stop</button>
+    </form>
+
+    <div class="status">
+      🔄 Server status updated to: {{ '🟢 on' if running else '🔴 off' }}
     </div>
-    <footer>CREATED BY TUF4N 4C</footer>
-    <script src="/static/script.js"></script>
+    <footer>
+      CREATED BY TUF4N 4C
+    </footer>
+  </div>
+  <div class="footer-ac">AC</div>
 </body>
 </html>

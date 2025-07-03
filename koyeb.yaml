@@ -1,0 +1,16 @@
+name: tuf4n4c-bot
+routes:
+  - path: /
+    type: http
+
+services:
+  - name: flask-bot
+    type: python
+    build:
+      buildCommand: ""
+      installCommand: pip install -r requirements.txt
+      env:
+        - name: PORT
+          value: "8000"
+    run:
+      command: python main.py

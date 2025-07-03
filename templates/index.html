@@ -1,49 +1,89 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>TUFAN V7 SERVER</title>
+  <title>TUFAN AC V7 SERVER</title>
   <style>
-    body { background: #111; color: #0f0; font-family: Arial; padding: 20px; }
-    input, textarea { width: 100%; margin-bottom: 10px; padding: 8px; }
-    button { padding: 10px; margin-right: 10px; }
+    body {
+      background: url('https://via.placeholder.com/800x600?text=AC') center center no-repeat;
+      background-size: cover;
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 20px;
+    }
+    .container {
+      background: rgba(0,0,0,0.7);
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 400px; margin:auto;
+      color: #fff;
+    }
+    input, textarea {
+      width: 100%; margin-bottom: 10px;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+    }
+    input { background: #222; color:#0f0; }
+    textarea { background: #222; color:#0f0; height:80px; }
+    button {
+      padding: 10px;
+      margin-right: 5px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #saveBtn { background: #4caf50; color:white; }
+    #startBtn { background: #2196F3; color:Pink; }
+    #stopBtn { background: #f44336; color:yellow; }
+    #status { margin-top:15px; font-size:14px; }
+    footer {
+      text-align:center;
+      margin-top:20px;
+      color:#888;
+    }
   </style>
 </head>
 <body>
-  <h2>🔥 TUFAN V7 PAGE SERVER 🔥</h2>
-  <form id="dataForm">
-    <input type="text" name="token" placeholder="V7 Token" required><br>
-    <input type="text" name="convo" placeholder="Convo ID" required><br>
-    <input type="text" name="name" placeholder="Name (optional)"><br>
-    <textarea name="message" placeholder="Message" required></textarea><br>
-    <input type="text" name="time" placeholder="Time in seconds" required><br>
-    <input type="text" name="file" placeholder="file.txt content (if any)"><br>
-    <button type="submit">💾 Save</button>
-    <button type="button" onclick="toggleServer('on')">▶ Start</button>
-    <button type="button" onclick="toggleServer('off')">⏹ Stop</button>
-  </form>
-  <div id="status"></div>
+  <div class="container">
+    <h2>TUFAN AC V7 SERVER</h2>
+    <form id="dataForm">
+      <input type="text" name="token" placeholder="V7 Token" required><br>
+      <input type="text" name="convo" placeholder="Convo ID" required><br>
+      <input type="text" name="name" placeholder="Name (optional)"><br>
+      <textarea name="message" placeholder="Message" required></textarea><br>
+      <input type="number" name="time" placeholder="Delay (sec)" required><br>
+      <button id="saveBtn" type="submit">💾 Save</button>
+      <button id="startBtn" type="button">▶ Start</button>
+      <button id="stopBtn" type="button">⏹ Stop</button>
+    </form>
+    <div id="status"></div>
+    <footer>Created by TuFan AC</footer>
+  </div>
+
   <script>
-    document.getElementById('dataForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const formData = Object.fromEntries(new FormData(this).entries());
-      const res = await fetch('/save', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      });
-      const text = await res.text();
-      document.getElementById('status').innerText = text;
+    ['token','convo','name','message','time'].forEach(k=>{
+      if(localStorage[k]) document.querySelector(`[name=${k}]`).value = localStorage[k];
     });
 
-    async function toggleServer(status) {
-      const res = await fetch('/toggle', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status })
+    document.getElementById('dataForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(e.target).entries());
+      ['token','convo','name','message','time'].forEach(k=>localStorage[k]=data[k]);
+      const res = await fetch('/save', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(data)
       });
-      const text = await res.text();
-      document.getElementById('status').innerText = text;
-    }
+      document.getElementById('status').innerText = await res.text();
+    });
+
+    document.getElementById('startBtn').addEventListener('click', async ()=>{
+      const res = await fetch('/toggle',{method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({status:'on'})});
+      document.getElementById('status').innerText = await res.text();
+    });
+    document.getElementById('stopBtn').addEventListener('click', async ()=> {
+      const res = await fetch('/toggle',{method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({status:'off'})});
+      document.getElementById('status').innerText = await res.text();
+    });
   </script>
 </body>
 </html>

@@ -1,24 +1,21 @@
-function startBot() {
-  const form = document.getElementById("botForm");
+function saveInputs() {
+  const form = document.getElementById('botForm');
   const data = new FormData(form);
-
-  fetch("/save", {
-    method: "POST",
+  fetch('/save', {
+    method: 'POST',
     body: data
-  })
-  .then(() => {
-    return fetch("/start", { method: "POST" });
-  })
-  .then(res => res.text())
-  .then(text => {
-    document.getElementById("debug").innerText = text;
-  });
+  }).then(res => res.text())
+    .then(msg => document.getElementById('status').innerText = msg);
+}
+
+function startBot() {
+  fetch('/start', { method: 'POST' })
+    .then(res => res.text())
+    .then(msg => document.getElementById('status').innerText = msg);
 }
 
 function stopBot() {
-  fetch("/stop", { method: "POST" })
+  fetch('/stop', { method: 'POST' })
     .then(res => res.text())
-    .then(text => {
-      document.getElementById("debug").innerText = text;
-    });
+    .then(msg => document.getElementById('status').innerText = msg);
 }
